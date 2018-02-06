@@ -7,9 +7,13 @@ class ListItem extends Component {
   onRowPress() {
     //this.props.navigation.navigate("ItemContainer");
     this.props.setItemUrl(this.props.post.url);
+    this.props.navigation.navigate('ItemContainer');
+
+    /*
     this.props.navigation.navigate('ItemContainer',{
-      url: this.props.post
-    });
+    navigation: this.props.navigation
+  });
+    */
   }
   render() {
     const { key, thumbnail, author, created_utc, title, score, num_comments, url} = this.props.post;

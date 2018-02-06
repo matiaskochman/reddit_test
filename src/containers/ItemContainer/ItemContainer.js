@@ -9,7 +9,7 @@ class ItemContainer extends Component {
   render(){
     return (
       <View style={{flex:1}}>
-        <Item url={this.props.url}/>
+        <Item navigation={this.props.navigation} url={this.props.url}/>
       </View>
     )
   }

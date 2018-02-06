@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,Image,WebView,Text,ScrollView } from 'react-native';
+import { View,Image,WebView,Text,ScrollView,Button } from 'react-native';
 import Dimensions from 'Dimensions';
 
 var width = Dimensions.get('window').width;
@@ -15,11 +15,14 @@ class Item extends Component {
       return (
 
         <View style={{flex:1,justifyContent:'center', alignItems: 'center',backgroundColor:'red',marginTop:20}}>
-            <ScrollView style={{borderWidth:3, borderColor : 'white', flex:1}}>
-                <WebView
-                  source={{uri: this.props.url}}
-                 style={{height,width}}/>
-            </ScrollView>
+          <View>
+            <Button onPress={() => this.props.navigation.goBack(null)} title="Go back" />
+          </View>
+          <ScrollView style={{borderWidth:3, borderColor : 'white', flex:1}}>
+              <WebView
+                source={{uri: this.props.url}}
+               style={{height,width}}/>
+          </ScrollView>
         </View>
 
       );
