@@ -11,15 +11,33 @@ class RedditPostsListContainer extends Component {
   }
 
   renderRow(post) {
+    //const { id } = post.item.data;
     return <ListItem post={post} />;
   }
 
   render() {
+    let postsArray = [];
+    if(this.props.redditPosts){
+
+      this.props.redditPosts.map( (post,index)=>{
+        let obj ={};
+        obj.key = index;
+        const { thumbnail, author, created_utc, title, score, num_comments, url,id } = post.data;
+        obj.thumbnail = thumbnail;
+        obj.author = author;
+        obj.title = title;
+        obj.score = score;
+        obj.num_comments = num_comments;
+        obj.url = url;
+        postsArray.push(obj);
+      })
+    }
+
     console.log(this.props);
     return (
       <View style={{marginTop:30}}>
         <FlatList
-          data={this.props.redditPosts}
+          data={postsArray}
           renderItem={this.renderRow}
         />
       </View>

@@ -3,10 +3,10 @@ import { put, takeEvery, all, call,takeLatest  } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchPostsAsync(action) {
-
   const reddit_api = 'https://api.reddit.com/r/pics/new.json';
-  let reddit_posts = yield call(axios.get,reddit_api);
+
   try{
+    let reddit_posts = yield call(axios.get,reddit_api);
     yield put(
         {
             type:'FETCH_POSTS_LIST',
