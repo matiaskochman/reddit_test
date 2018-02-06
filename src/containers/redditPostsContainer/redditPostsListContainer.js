@@ -74,15 +74,12 @@ class RedditPostsListContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  //const employees = _.map(state.employees, (val, uid) => ({ ...val, uid }));
   const redditPosts = state.RedditPostsReducer.posts;
   return { redditPosts };
 };
 
 function bindAction(dispatch) {
 	return {
-		//seleccionarFecha: (fecha) => seleccionarFecha(fecha),
-		//employeesFetch: (fecha) => dispatch(employeesFetch()),
     setItemUrl: (url) => dispatch(setItemUrl(url)),
 		postsFetch: () => dispatch(postsFetch())
 	};

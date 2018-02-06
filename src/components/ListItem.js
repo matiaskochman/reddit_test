@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View,Image,WebView } from 'react-native';
+import { Text, TouchableWithoutFeedback, View,Image,WebView,StyleSheet } from 'react-native';
 import moment from 'moment'
 
 class ListItem extends Component {
 
   onRowPress() {
-    //this.props.navigation.navigate("ItemContainer");
     this.props.setItemUrl(this.props.post.url);
     this.props.navigation.navigate('ItemContainer');
 
-    /*
-    this.props.navigation.navigate('ItemContainer',{
-    navigation: this.props.navigation
-  });
-    */
   }
   render() {
     const { key, thumbnail, author, created_utc, title, score, num_comments, url} = this.props.post;
 
-    let date = moment.utc(created_utc).format('YYYY-MM-DD hh:mm:ss');
+    //let date = moment.utc(created_utc).format('YYYY-MM-DD hh:mm:ss');
+    let date = moment.utc(created_utc).format('YYYY-MM-DD');
 
     return (
       <View>
@@ -32,24 +27,29 @@ class ListItem extends Component {
               <View style={{flex:1,backgroundColor:'red',flexDirection:'row'}}>
                 <View style={{flex:1}}>
                 </View>
-                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                  <Text>date</Text>
-
+                <View style={styles.container1}>
+                  <Text style={{fontSize:10}}>date:</Text>
+                  <Text style={{fontSize:9,marginLeft:5}}>{date}</Text>
                 </View>
               </View>
-              <View style={{flex:1.3,backgroundColor:'grey',justifyContent:'center',alignItems:'center'}}>
-                <Text>Title</Text>
+              <View style={[{flex:1.3,backgroundColor:'grey'},styles.container2]}>
+                <Text style={{fontSize:10,flex:0.1}}>Title:</Text>
+                <Text style={{fontSize:8,marginLeft:10,marginRight:20,flex:0.8}}>{title}</Text>
               </View>
               <View style={{flex:1,backgroundColor:'blue',flexDirection:'row'}}>
-                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                  <Text>author</Text>
+                <View style={[{flex:0.95},,styles.container2]}>
+                  <Text style={{fontSize:10,flex:0.3,marginLeft:5}}>author:</Text>
+                  <Text style={{fontSize:8,marginLeft:5,flex:0.7}}>{author}</Text>
                 </View>
-                <View style={{flex:1,flexDirection:'row'}}>
-                  <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                    <Text>score</Text>
+                <View style={{flex:0.95,flexDirection:'row'}}>
+                  <View style={[{flex:0.9},styles.container2]}>
+                    <Text style={{fontSize:10}}>score:</Text>
+                    <Text style={{fontSize:9}}>{score}</Text>
+
                   </View>
-                  <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                    <Text>comments</Text>
+                  <View style={styles.container1}>
+                    <Text style={{fontSize:10}}>comments:</Text>
+                    <Text style={{fontSize:9,marginLeft:5}}>{num_comments}</Text>
                   </View>
                 </View>
               </View>
@@ -65,3 +65,19 @@ class ListItem extends Component {
 }
 
 export default ListItem;
+
+const styles = StyleSheet.create({
+	container1:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    flexDirection:'row'
+	},
+  container2:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    flexDirection:'row'
+	}
+
+});

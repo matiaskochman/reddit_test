@@ -21,10 +21,5 @@ const mapStateToProps = (state) => {
   return { url };
 };
 
-function bindAction(dispatch) {
-	return {
-		setItemUrl: (url) => dispatch(setItemUrl(url))
-	};
-}
 
-export default connect(mapStateToProps, bindAction)(ItemContainer);
+export default connect(mapStateToProps)(ItemContainer);
