@@ -1,22 +1,44 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView,View,FlatList } from 'react-native';
+import { ListView,View,FlatList,TouchableHighlight } from 'react-native';
 import { postsFetch } from './actions';
+import { setItemUrl } from '../ItemContainer/actions';
 import ListItem from '../../components/ListItem.js';
 
 class RedditPostsListContainer extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {
+      postsArray: []
+    }
+  }
+
   componentDidMount() {
     this.props.postsFetch();
   }
 
-  renderRow(post) {
-    //const { id } = post.item.data;
-    return <ListItem post={post} />;
+
+  renderRow({post,index}) {
+    return <ListItem  key={post.key} post={post} />;
+  }
+
+  renderItem = ({item,index}) => {
+
+    return (
+      <ListItem navigation={this.props.navigation} setItemUrl={this.props.setItemUrl} key={item.key} post={item} />
+    )
+	}
+
+  goToNextScreen(post){
+    return this.props.navigation.navigate('ItemContainer',{
+      url: post.url
+    });
+
   }
 
   render() {
-    let postsArray = [];
     if(this.props.redditPosts){
 
       this.props.redditPosts.map( (post,index)=>{
@@ -29,19 +51,25 @@ class RedditPostsListContainer extends Component {
         obj.score = score;
         obj.num_comments = num_comments;
         obj.url = url;
-        postsArray.push(obj);
+        this.state.postsArray.push(obj);
       })
+
+      return (
+        <View style={{marginTop:30}}>
+          <FlatList
+            data={this.state.postsArray}
+            renderItem={this.renderItem}
+          />
+
+        </View>
+      )
+
+    }else{
+      return (
+        <View></View>
+      )
     }
 
-    console.log(this.props);
-    return (
-      <View style={{marginTop:30}}>
-        <FlatList
-          data={postsArray}
-          renderItem={this.renderRow}
-        />
-      </View>
-    )
   }
 }
 
@@ -55,6 +83,7 @@ function bindAction(dispatch) {
 	return {
 		//seleccionarFecha: (fecha) => seleccionarFecha(fecha),
 		//employeesFetch: (fecha) => dispatch(employeesFetch()),
+    setItemUrl: (url) => dispatch(setItemUrl(url)),
 		postsFetch: () => dispatch(postsFetch())
 	};
 }

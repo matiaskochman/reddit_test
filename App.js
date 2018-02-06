@@ -12,7 +12,8 @@ import rootSaga from './src/containers/redditPostsContainer/sagas.js';
 
 
 //import apuestasSaga from './components/saga.js';
-import RedditPostsListContainer from './src/containers/redditPostsContainer/redditPostsListContainer.js';
+//import RedditPostsListContainer from './src/containers/redditPostsContainer/redditPostsListContainer.js';
+import AppRouter from './src/AppRouter'
 
 class App extends Component {
 
@@ -24,7 +25,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <RedditPostsListContainer />
+        <AppRouter />
       </Provider>
     );
   }

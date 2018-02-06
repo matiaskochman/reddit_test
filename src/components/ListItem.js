@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View,Image } from 'react-native';
+import { Text, TouchableWithoutFeedback, View,Image,WebView } from 'react-native';
 import moment from 'moment'
-const styles = { titleStyle: { fontSize: 16, paddingLeft: 15 } };
 
 class ListItem extends Component {
+
   onRowPress() {
-
+    //this.props.navigation.navigate("ItemContainer");
+    this.props.setItemUrl(this.props.post.url);
+    this.props.navigation.navigate('ItemContainer',{
+      url: this.props.post
+    });
   }
-
   render() {
-    const { key, thumbnail, author, created_utc, title, score, num_comments, url} = this.props.post.item;
+    const { key, thumbnail, author, created_utc, title, score, num_comments, url} = this.props.post;
 
     let date = moment.utc(created_utc).format('YYYY-MM-DD hh:mm:ss');
 
@@ -49,23 +52,11 @@ class ListItem extends Component {
             </View>
           </View>
         </TouchableWithoutFeedback>
+
         <View style={{height:5,backgroundColor:'white'}}>
         </View>
       </View>
     );
-    {
-      /*
-      <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
-      <View>
-      <CardSection>
-      <Text style={styles.titleStyle}>
-      {name}
-      </Text>
-      </CardSection>
-      </View>
-      </TouchableWithoutFeedback>
-      */
-    }
   }
 }
 
